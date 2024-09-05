@@ -1,14 +1,20 @@
 const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
 const estudiantesRoutes = require('./routes/estudiantesRoutes');
+const mongoose = require("mongoose")
 
-dotenv.config();
+require("dotenv").config()
 
 const app = express();
 
-app.use(cors());
+
 app.use(express.json());
+
+//conexion DB
+
+mongoose.connect(process.env.MONGO_URI)
+    .then(()=>console.log("base de datos conectada"))
+    .catch(err => console.error("no se pudo conectar a MongoDB", err))
+
 
 // Rutas
 app.use('/api/estudiantes', estudiantesRoutes);
