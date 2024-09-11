@@ -1,6 +1,8 @@
 const express = require('express');
 const estudiantesRoutes = require('./routes/estudiantesRoutes');
+const materiaRoutes = require('./routes/materia')
 const mongoose = require("mongoose")
+
 
 require("dotenv").config()
 
@@ -19,6 +21,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Rutas
 app.use('/api/estudiantes', estudiantesRoutes);
+app.use('/api/materias', materiaRoutes);
 
 app.get('/', (req, res) => {
     res.send('¡Hola, Mundo!');
