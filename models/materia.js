@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const materiaSchema = new mongoose.Schema ({
     nombre:{
         type:String,
-        require: true
+        required: true
     },
    
         estudiantes: [{
@@ -13,7 +13,7 @@ const materiaSchema = new mongoose.Schema ({
         }],
     profesor:{
         type:String,
-        require:true
+        required:true
     }
 })
 
