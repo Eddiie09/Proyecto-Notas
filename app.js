@@ -1,32 +1,32 @@
 const express = require('express');
-const mongoose = require("mongoose")
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-const estudiantesRoutes = require('./routes/estudiantesRoutes')
-const materiaRoutes = require('./routes/materia')
-const authRoutes = require('./routes/auth')
+const estudiantesRoutes = require('./routes/estudiantesRoutes');
+const materiaRoutes = require('./routes/materia');
+const authRoutes = require('./routes/auth');
+const authMiddleware = require('./middlewares/authMiddleware');
 
-
-require("dotenv").config()
+dotenv.config();
 
 const app = express();
-//middleware
 
-
+// Middleware para parsear JSON
 app.use(express.json());
 
-//conexion DB
-
+// Conexión a la base de datos
 mongoose.connect(process.env.MONGO_URI)
-    .then(()=>console.log("base de datos conectada"))
-    .catch(err => console.error("no se pudo conectar a MongoDB", err))
+    .then(() => console.log('Base de datos conectada'))
+    .catch(err => console.error('No se pudo conectar a MongoDB', err));
 
+// Rutas de autenticación
+app.use('/api', authRoutes); // Maneja /api/auth/register y /api/auth/login
 
-// Rutas
-app.use('/api/estudiantes', estudiantesRoutes);
-app.use('/api/materias', materiaRoutes);
-app.use('/api/register', authRoutes);
+// Aplicar middleware de autenticación a rutas protegidas
+app.use('/api/estudiantes', authMiddleware, estudiantesRoutes);
+app.use('/api/materias', authMiddleware, materiaRoutes);
 
-
+// Ruta de prueba
 app.get('/', (req, res) => {
     res.send('¡Hola, Mundo!');
 });
