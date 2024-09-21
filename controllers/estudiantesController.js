@@ -47,6 +47,7 @@ exports.actualizarEstudiante = async (req, res) => {
         if(!estudiante){
             res.status(404).json({message:"Estudiante no encontrado"})
         }
+        return(res.status(200).json(estudiante))
     } catch (error) {
         res.status(500).json({error:error.message})
     }

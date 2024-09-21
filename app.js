@@ -31,7 +31,9 @@ app.get('/', (req, res) => {
     res.send('¡Hola, Mundo!');
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
+module.exports = app
+
+//const PORT = process.env.PORT || 5000;
+//app.listen(PORT, () => {
+  // console.log(`Servidor corriendo en el puerto ${PORT}`);
+//});

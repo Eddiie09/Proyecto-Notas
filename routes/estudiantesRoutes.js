@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const estudiantesController = require("../controllers/estudiantesController")
 
+
 router.get("/", estudiantesController.obtenerEstudiante)
 router.post("/", estudiantesController.crearEstudiante)
 router.get("/:idEstudiante", estudiantesController.obtenerEstudiantePorId)
