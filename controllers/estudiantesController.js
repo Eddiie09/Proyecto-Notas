@@ -1,7 +1,7 @@
 const Estudiante = require("../models/estudiante")
 
 
-exports.obtenerEstudiante = async (req, res) => {
+exports.obtenerEstudiantes = async (req, res) => {
     try {
         const estudiantes = await Estudiante.find()
         res.status(200).json(estudiantes)
@@ -20,7 +20,7 @@ exports.crearEstudiante = async (req, res) => {
 
 
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({error: error.message})
     }
 }
 
@@ -28,21 +28,20 @@ exports.obtenerEstudiantePorId = async (req, res) => {
     try {
         const idEstudiante = req.params.idEstudiante
         const estudiante = await Estudiante.findById(idEstudiante)
-        if (!estudiante) {
+        if(!estudiante) {
             res.status(404).json({ message: "Estudiante no enconrtrado" })
         }
         res.status(200).json(estudiante)
     } catch (error) {
-        res.status(500).json({ error: error.message })
+        res.status(500).json({error: error.message})
     }
-};
+}
 
 exports.actualizarEstudiante = async (req, res) => {
     try {
         const idEstudiante = req.params.idEstudiante
         const nuevoEstudiante = req.body
-        const estudiante = await Estudiante
-        .findByIdAndUpdate(idEstudiante,nuevoEstudiante,{new:true})
+        const estudiante = await Estudiante.findByIdAndUpdate(idEstudiante,nuevoEstudiante,{new:true})
         
         if(!estudiante){
             res.status(404).json({message:"Estudiante no encontrado"})
@@ -55,7 +54,7 @@ exports.actualizarEstudiante = async (req, res) => {
 
 exports.eliminarEstudiante = async (req, res) => {
     try {
-        const idEstudiante = req.params.idEstudiante;
+        const idEstudiante = req.params.idEstudiante
         const estudiante = await Estudiante.findByIdAndDelete(idEstudiante)
         if(!estudiante){
             res.status(404).json({message:"Estudiante no encontrado"})
@@ -63,7 +62,7 @@ exports.eliminarEstudiante = async (req, res) => {
         console.log(estudiante)
         res.status(200).json({
             message: `Estudiante con ID ${idEstudiante} eliminado`,
-        });
+        })
     } catch (error) {
         res.status(500).json({ error: error.message })
     }

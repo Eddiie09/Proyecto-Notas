@@ -3,6 +3,7 @@ const app = require("../app");
 const mongoose = require("mongoose");
 const Estudiante = require("../models/estudiante");
 const jwt = require("jsonwebtoken");
+const estudiante = require("../models/estudiante")
 
 const generarToken = () => {
   return jwt.sign({ userId: "fakeUserId" }, "secretKey", { expiresIn: "1h" });
@@ -42,9 +43,9 @@ describe("CRUD Estudiantes con JWT", () => {
       .post("/api/estudiantes")
       .set("Authorization", token)
       .send({
-        nombre: "Juan Perez",
-        matricula: true,
-        edad: 22,
+        nombre:"Juan Perez",
+        matricula:true,
+        edad:22,
       });
     expect(res.statusCode).toEqual(201);
     expect(res.body).toHaveProperty("_id");
@@ -72,9 +73,9 @@ describe("CRUD Estudiantes con JWT", () => {
 
   it("Test para obtener un estudiante por ID", async () => {
     const estudiante = await Estudiante.create({
-      nombre: "Homero Thompson",
-      matricula: true,
-      edad: 30,
+      nombre:"Homero Thompson",
+      matricula:true,
+      edad:30,
     });
     
     const token = generarToken();
@@ -89,18 +90,18 @@ describe("CRUD Estudiantes con JWT", () => {
   it("Test para actualizar estudiantes usando ID", async () => {
     const estudiante = await Estudiante.create({
       nombre: "Pedro Perez",
-      matricula: false,
-      edad: 15,
+      matricula:false,
+      edad:15,
     });
     console.log(estudiante)
     const token = generarToken();
     const res = await request(app)
-      .put(`/api/estudiantes/${estudiante._id.toString()}`)
+      .put(`/api/estudiantes/${estudiante._id}`)
       .set("Authorization", token)
       .send({
-        nombre: "Pedro Parra",
-        matricula: true,
-        edad: 15,
+        nombre:"Pedro Parra",
+        matricula:true,
+        edad:15,
       });
       console.log(res)
     expect(res.statusCode).toEqual(200);

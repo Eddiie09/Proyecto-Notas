@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
-const materiaSchema = new mongoose.Schema ({
+const materiaSchema = new Schema ({
     nombre:{
         type:String,
         required: true
@@ -18,7 +18,9 @@ const materiaSchema = new mongoose.Schema ({
 })
 
 
-module.exports = mongoose.model("materia", materiaSchema);
+const Materia = mongoose.model("Materia", materiaSchema)
+
+module.exports = Materia
 
 
 //controladores y rutas para materia
