@@ -15,12 +15,7 @@ const app = express();
 app.use(express.json());
 
 // Conexión a la base de datos
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 50000, // Tiempo máximo para seleccionar un servidor, por defecto es 30000 (30 segundos)
-  socketTimeoutMS: 45000, // Tiempo máximo para que una operación espere, valor por defecto también es 30000 (30 segundos)
-})
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('Conectado a MongoDB'))
 .catch((err) => console.log('Error de conexión:', err));
 
@@ -29,7 +24,7 @@ app.use('/api', authRoutes); // Maneja /api/auth/register y /api/auth/login
 
 // Aplicar middleware de autenticación a rutas protegidas
 app.use('/api/estudiantes', estudiantesRoutes);
-app.use('/api/materia',  materiaRoutes);
+app.use('/api/materias',  materiaRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
