@@ -81,7 +81,7 @@ describe("CRUD Materias con JWT", () => {
       });
       const token = generarToken();
       const res = await request(app)
-      .get(`/api/materia/${materia._id}`)
+      .get(`/api/materias/${materia._id}`)
       .set("Authorization", token);
 
       expect(res.statusCode).toEqual(200);

@@ -1,5 +1,5 @@
 const Estudiante = require("../models/estudiante")
-const estudianteController = require("../controllers/estudianteController")
+const estudianteController = require("../controllers/estudiantesController")
 const { param } = require("../app")
 
 jest.mock("../models/estudiante")
@@ -76,7 +76,7 @@ describe("Obtener estudiantes por ID",()=>{
                 matricula:true, 
                 _id:"123",
                 __v:0})
-        await estudianteController.obtenerEstudiantePorID(req,res)
+        await estudianteController.obtenerEstudiantePorId(req,res)
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalledWith({
             nombre:"Juan Perez",
@@ -95,10 +95,10 @@ describe("Obtener estudiantes por ID",()=>{
         }
         Estudiante.findById.mockResolvedValue(null)
 
-        await estudianteController.obtenerEstudiantePorID(req,res)
+        await estudianteController.obtenerEstudiantePorId(req,res)
 
         expect(res.status).toHaveBeenCalledWith(404)
-        expect(res.json).toHaveBeenCalledWith({message:"estudiante no encontrado"})
+        expect(res.json).toHaveBeenCalledWith({message:"Estudiante no encontrado"})
     })
     it("Deberia devolver un 500 cuando falla al obtener el estudiante por otra razon diferente a no encontrarlo",
         async ()=>{
@@ -111,7 +111,7 @@ describe("Obtener estudiantes por ID",()=>{
             }
             Estudiante.findById.mockRejectedValue(new Error("Error en la base de datos"))
 
-            await estudianteController.obtenerEstudiantePorID(req,res)
+            await estudianteController.obtenerEstudiantePorId(req,res)
 
             expect(res.status).toHaveBeenCalledWith(500)
             expect(res.json).toHaveBeenCalledWith({error:"Error en la base de datos"})
@@ -134,7 +134,7 @@ describe("ActualizarEstudiante",()=>{
             matricula:true, 
             _id:"123",
             __v:0})
-        await estudianteController.actualizarEstudiente(req, res)
+        await estudianteController.actualizarEstudiante(req, res)
         
         expect(res.status).toHaveBeenCalledWith(200)
         expect(res.json).toHaveBeenCalledWith({
@@ -156,10 +156,10 @@ describe("ActualizarEstudiante",()=>{
         }
         Estudiante.findByIdAndUpdate.mockResolvedValue(null)
 
-        await estudianteController.actualizarEstudiente(req,res)
+        await estudianteController.actualizarEstudiante(req,res)
 
         expect(res.status).toHaveBeenCalledWith(404)
-        expect(res.json).toHaveBeenCalledWith({message:"estudiante no encontrado"})
+        expect(res.json).toHaveBeenCalledWith({message:"Estudiante no encontrado"})
     })
     it("Deberia devolver un 500 cuando falla al obtener el estudiante por otra razon diferente a no encontrarlo",
         async ()=>{
@@ -173,7 +173,7 @@ describe("ActualizarEstudiante",()=>{
             }
             Estudiante.findByIdAndUpdate.mockRejectedValue(new Error("Error en la base de datos"))
 
-            await estudianteController.actualizarEstudiente(req,res)
+            await estudianteController.actualizarEstudiante(req,res)
 
             expect(res.status).toHaveBeenCalledWith(500)
             expect(res.json).toHaveBeenCalledWith({error:"Error en la base de datos"})
@@ -189,12 +189,12 @@ describe("eliminarEstudiante",()=>{
             status: jest.fn().mockReturnThis(),
             json: jest.fn()
         }
-        await Estudiante.findByIdAndDelete.mockResolvedValue({message:`estudiante con 123 eliminado`})
+        await Estudiante.findByIdAndDelete.mockResolvedValue({message:`Estudiante con 123 eliminado`})
 
         await estudianteController.eliminarEstudiante(req,res)
 
         expect(res.status).toHaveBeenCalledWith(200)
-        expect(res.json).toHaveBeenCalledWith({message:`estudiante con 123 eliminado`})
+        expect(res.json).toHaveBeenCalledWith({message:`Estudiante con 123 eliminado`})
     })
     it("Deberia devolver un 404 si no encuentra el ID del estudiante para ser eliminado", async ()=>{
         const req = {
@@ -209,7 +209,7 @@ describe("eliminarEstudiante",()=>{
         await estudianteController.eliminarEstudiante(req,res)
 
         expect(res.status).toHaveBeenCalledWith(404)
-        expect(res.json).toHaveBeenCalledWith({message:"estudiante no encontrado"})
+        expect(res.json).toHaveBeenCalledWith({message:"Estudiante no encontrado"})
     })
     it("Deberia devolver un 500 cuando falla al obtener el estudiante por otra razon diferente a no encontrarlo",
         async ()=>{
