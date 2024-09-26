@@ -80,6 +80,34 @@ describe("CRUD Materias con JWT", () => {
         profesor:"Javier",
       }); 
       console.log(materia)
+
+      const token = generarToken();
+      const res = await request(app)
+      .get(`/api/materias/${materia._id}`)
+      .set("Authorization", token);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.nombre).toBe("matematicas");
+    });
+    it("Test para actualizar materias usando ID", async ()=>{
+      const materia = await Materia.create({
+        nombre: "matematicas",
+        profesor:"Javier",
+      });
+
+      const token = generarToken();
+      const res = await request(app)
+      .get(`/api/materias/${materia._id}`)
+      .set("Authorization", token);
+
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.nombre).toBe("matematicas");
+    });
+    it("Test para eliminar estudiante por ID", async ()=>{
+      const materia = await Materia.create({
+        nombre: "matematicas",
+        profesor: "Javier",
+      });
       const token = generarToken();
       const res = await request(app)
       .get(`/api/materias/${materia._id}`)
