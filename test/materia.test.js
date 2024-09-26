@@ -78,13 +78,14 @@ describe("CRUD Materias con JWT", () => {
       const materia = await Materia.create({
         nombre: "matematicas",
         profesor:"Javier",
-      });
+      }); 
+      console.log(materia)
       const token = generarToken();
       const res = await request(app)
       .get(`/api/materias/${materia._id}`)
       .set("Authorization", token);
 
       expect(res.statusCode).toEqual(200);
-      expect(res.body.nombre).tobe("matematicas");
+      expect(res.body.nombre).toBe("matematicas");
     })
 })

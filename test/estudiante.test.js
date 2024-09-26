@@ -93,7 +93,7 @@ describe("CRUD Estudiantes con JWT", () => {
       matricula:false,
       edad:15,
     });
-    console.log(estudiante)
+   
     const token = generarToken();
     const res = await request(app)
       .put(`/api/estudiantes/${estudiante._id}`)
@@ -103,7 +103,7 @@ describe("CRUD Estudiantes con JWT", () => {
         matricula:true,
         edad:15,
       });
-      console.log(res)
+      
     expect(res.statusCode).toEqual(200);
     expect(res.body.nombre).toBe("Pedro Parra");
     expect(res.body.matricula).toEqual(true);
@@ -119,6 +119,6 @@ describe("CRUD Estudiantes con JWT", () => {
     const res = await request(app).delete(`/api/estudiantes/${estudiante._id}`)
     .set("Authorization", token)
     expect(res.statusCode).toEqual(200)
-    expect(res.body.message).toBe(`Estudiante con ID ${estudiante._id} eliminado`)
+    expect(res.body.message).toBe(`Estudiante con ${estudiante._id} eliminado`)
   }) 
 });

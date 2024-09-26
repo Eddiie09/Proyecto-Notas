@@ -17,7 +17,7 @@ app.use(express.json());
 // Conexión a la base de datos
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('Conectado a MongoDB'))
-.catch((err) => console.log('Error de conexión:', err));
+.catch((err) => console.error('Error de conexión:'));
 
 // Rutas de autenticación
 app.use('/api', authRoutes); // Maneja /api/auth/register y /api/auth/login
@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 
 module.exports = app
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-   console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
+// const PORT = process.env.PORT || 5000;
+// app.listen(PORT, () => {
+//    console.log(Servidor corriendo en el puerto ${PORT});
+// });

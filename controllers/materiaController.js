@@ -23,7 +23,7 @@ exports.crearMaterias = async (req, res) => {
 exports.obtenerMateriaPorId = async (req, res) => {
     try {
         
-        const idMateria = req.params.idMateria
+        const idMateria = req.params.id
         const materia = await Materia.findById(idMateria) 
 
         if (!materia) {
